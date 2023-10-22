@@ -296,89 +296,42 @@ const removecart=(req,res)=>{
 }
 
 
-// const wishlistAdd = (req, res) => {
-//     const { userId, pId } = req.body
-//     wishlist.findOne({ userId, pId }).then(data => {
-//         if (data) {
-//             res.status(400).json({
-//                 message: "Prodct added already",
-//                 status: true,
-//                 statusCode: 200,
-//             })
-
-//         } else {
-//             product.findOne({ _id: pId }).then(pdct => {
-//                 if (pdct) {
-//                     newWishlist = new wishlist({
-//                         userId,
-//                         pId,
-//                         pname: pdct.pname,
-//                         category: pdct.category,
-//                         price: pdct.price,
-//                         image: pdct.image,
-//                     })
-//                     newWishlist.save()
-//                     res.status(200).json({
-//                         message: "Prodct added",
-//                         status: true,
-//                         statusCode: 200,
-//                     })
-//                 }
-//             })
-//         }
-//     })
-
-// }
-
-
 const wishlistAdd = (req, res) => {
-    const { userId, pId } = req.body;
+    const { userId, pId } = req.body
     wishlist.findOne({ userId, pId }).then(data => {
         if (data) {
-            // Product already exists in the wishlist, so remove it
-            wishlist.findOneAndRemove({ userId, pId }, (err, doc) => {
-                if (err) {
-                    res.status(500).json({
-                        message: "Error removing product from wishlist",
-                        status: false,
-                        statusCode: 500,
-                    });
-                } else {
-                    res.status(200).json({
-                        message: "Product removed from wishlist",
-                        status: true,
-                        statusCode: 200,
-                    });
-                }
-            });
+            res.status(400).json({
+                message: "Prodct added already",
+                status: true,
+                statusCode: 200,
+            })
+
         } else {
             product.findOne({ _id: pId }).then(pdct => {
                 if (pdct) {
-                    const newWishlist = new wishlist({
+                    newWishlist = new wishlist({
                         userId,
                         pId,
                         pname: pdct.pname,
                         category: pdct.category,
                         price: pdct.price,
                         image: pdct.image,
-                    });
+                    })
                     newWishlist.save()
                     res.status(200).json({
-                        message: "Product added to the wishlist",
+                        message: "Prodct added",
                         status: true,
                         statusCode: 200,
-                    });
-                } else {
-                    res.status(400).json({
-                        message: "Product not found",
-                        status: false,
-                        statusCode: 400,
-                    });
+                    })
                 }
-            });
+            })
         }
-    });
+    })
+
 }
+
+
+
 
 
 
