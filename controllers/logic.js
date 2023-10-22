@@ -329,13 +329,6 @@ const wishlistAdd = (req, res) => {
     })
 
 }
-
-
-
-
-
-
-
 const removewishlistItem=(req,res)=>{
     const {_id} = req.params
     wishlist.deleteOne({_id}).then(data=>{
